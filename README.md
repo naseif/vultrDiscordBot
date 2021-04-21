@@ -12,8 +12,8 @@ vultrDiscordBot is a bot to help you create and destroy servers from vultr direc
 
 ## Installation
 
-First you need to get your own discord Token from the ![Discord Developer Portal](https://discord.com/developers/applications) and add the bot to your server <br/>
-Second you need to get your vultr api key from ![vultr](https://my.vultr.com/settings/#settingsapi)
+First you need to get your own discord Token from the [Discord Developer Portal](https://discord.com/developers/applications) and add the bot to your server <br/>
+Second you need to get your vultr api key from [vultr](https://my.vultr.com/settings/#settingsapi)
 
 clone the repository and install the modules :
 
