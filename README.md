@@ -32,7 +32,7 @@ The bot is currently in devolpment and right now only creates this specific inst
 
 This Server is located in Amsterdam, has 4 Cores, 8GB RAM and runs Ubuntu 20.04. This plan costs currently only _0.06$/h_ on vultr <br/>
 
-You can create the server by sending this message in any text channels on the server you added the bot to. `createS` after you sent the message <br/>
+You can create the server by sending this message in any text channels on the server you added the bot to `createS` <br/>
 
 To destroy the instance you created just send `destroyS`
 
