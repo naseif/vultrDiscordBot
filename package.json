@@ -1,0 +1,31 @@
+{
+  "name": "vultrdiscordbot",
+  "version": "1.0.0",
+  "description": " Discord Bot to create and delete instances using the Vultr RESTful api ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naseif/vultrDiscordBot.git"
+  },
+  "keywords": [
+    "vultrBot",
+    "vultr",
+    "discord",
+    "bot",
+    "discord",
+    "vultr"
+  ],
+  "author": "naseif",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/naseif/vultrDiscordBot/issues"
+  },
+  "homepage": "https://github.com/naseif/vultrDiscordBot#readme",
+  "dependencies": {
+    "@vultr/vultr-node": "^2.0.6",
+    "discord.js": "^12.5.3"
+  }
+}
