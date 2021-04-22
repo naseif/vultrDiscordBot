@@ -1,7 +1,7 @@
 const create = require("../createInstance");
 module.exports = {
   name: "create",
-  description: "it creates!",
+  description: "Creats an instance",
   execute(message, args) {
     create.createInstance(message);
   },
