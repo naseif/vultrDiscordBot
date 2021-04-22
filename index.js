@@ -1,86 +1,36 @@
+const fs = require("fs");
 const Discord = require("discord.js");
-const VultrNode = require("@vultr/vultr-node");
+const { prefix, token } = require("./config.json");
 const client = new Discord.Client();
-client.login(""); // Your Discord Token
-const vultr = VultrNode.initialize({
-  apiKey: "", // Your vultr API Key
+client.commands = new Discord.Collection();
+
+const commandFiles = fs
+  .readdirSync("./src/commands")
+  .filter((file) => file.endsWith(".js"));
+
+for (const file of commandFiles) {
+  const command = require(`./src/commands/${file}`);
+  client.commands.set(command.name, command);
+}
+
+client.once("ready", () => {
+  console.log("Ready!");
 });
 
-client.on("ready", () => {
-  console.log(`Logged in as ${client.user.tag}!`);
-});
-let data;
-client.on("message", (msg) => {
-  if (msg.author.bot) return;
-  if (msg.content === "createS") {
-    let psswd;
-    msg.reply(
-      new Discord.MessageEmbed()
-        .setTitle("Creating Server!")
-        .setColor("#0099ff")
-        .setDescription("This can take up to 10 seconds!")
-    );
-    function returnInstanceInfo() {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(
-            vultr.instances.listInstances().then((res) => {
-              return res;
-            })
-          );
-        }, 9000);
-      });
-    }
+console.log(client.commands);
 
-    async function createAMS() {
-      vultr.instances
-        .createInstance({
-          region: "ams",
-          plan: "vc2-4c-8gb",
-          os_id: "387",
-        })
-        .then((res) => {
-          psswd = res.instance.default_password;
-        });
+client.on("message", (message) => {
+  if (!message.content.startsWith(prefix) || message.author.bot) return;
 
-      const instance = await returnInstanceInfo();
-      data = instance.instances[0];
-
-      let embedMessageCreated = new Discord.MessageEmbed()
-        .setTitle("Server Created!")
-        .addFields(
-          { name: "id", value: `${data.id}` },
-          {
-            name: "IP",
-            value: `${data.main_ip}`,
-          },
-          { name: "Password", value: `${psswd}` },
-          { name: "OS", value: `${data.os}` }
-        )
-        .setColor("#0099ff")
-        .setThumbnail(
-          "https://imagizer.imageshack.com/v2/150x100q90/923/A8FbcB.png"
-        );
-      msg.reply(embedMessageCreated);
-    }
-
-    createAMS();
-  }
-
-  if (msg.content === "destroyS") {
-    vultr.instances.listInstances().then((res) => {
-      id = res.instances[0].id;
-
-      vultr.instances.deleteInstance({
-        "instance-id": `${id}`,
-      });
-
-      let embedMessageDestroyed = new Discord.MessageEmbed()
-        .setTitle("Server Destroyed!")
-        .setDescription(`Server with id: ${id} is destroyed!`)
-        .setColor("#0099ff");
-
-      msg.reply(embedMessageDestroyed);
-    });
+  const args = message.content.slice(prefix.length).trim().split(/ +/);
+  const command = args.shift().toLowerCase();
+  if (!client.commands.has(command)) return;
+  try {
+    client.commands.get(command).execute(message, args);
+  } catch (err) {
+    console.error(err);
+    message.reply("Command Unknown!");
   }
 });
+
+client.login(token);
