@@ -1,8 +1,17 @@
 const vultr = require("./vultrinitializer");
 const Discord = require("discord.js");
-const { server_os, server_plan, server_region } = require("../config.json");
+const {
+  server_os,
+  server_plan,
+  server_region,
+  vultrAPI,
+} = require("../config.json");
 
 function createInstance(message) {
+  if (!vultrAPI) {
+    message.channel.send("Your Vultr API token is not defined!");
+    return;
+  }
   let psswd;
   message.channel.send(
     new Discord.MessageEmbed()
