@@ -25,7 +25,7 @@ function sshToServer(message, host, password) {
             console.log("OUTPUT: " + data);
           });
         stream.end(
-          `wget https://raw.githubusercontent.com/stho32/create-working-environment-for-js-on-ubuntuserver/main/setup.sh && chmod +x setup.sh && ./setup.sh && exit` +
+          `wget https://raw.githubusercontent.com/Michelangelo1337/create-working-environment-for-js-on-ubuntuserver/main/setup.sh && chmod +x setup.sh && ./setup.sh && exit` +
             "\nexit\n"
         );
       });

@@ -75,7 +75,7 @@ function createInstance(message) {
     }, 20000);
     setTimeout(function () {
       ssh.sshToServer(message, data.main_ip, psswd);
-    }, 51000);
+    }, 57000);
   }
   createIns();
 }
