@@ -6,6 +6,7 @@ const {
   server_region,
   vultrAPI,
 } = require("../config.json");
+const ssh = require("./createSSHConntection");
 
 function createInstance(message) {
   if (!vultrAPI) {
@@ -27,7 +28,7 @@ function createInstance(message) {
             return res;
           })
         );
-      }, 9000);
+      }, 10000);
     });
   }
 
@@ -44,7 +45,6 @@ function createInstance(message) {
 
     const instance = await returnInstanceInfo();
     data = instance.instances[0];
-
     let embedMessageCreated = new Discord.MessageEmbed()
       .setTitle("Server Created!")
       .addFields(
@@ -62,6 +62,20 @@ function createInstance(message) {
         "https://imagizer.imageshack.com/v2/150x100q90/923/A8FbcB.png"
       );
     message.channel.send(embedMessageCreated);
+
+    setTimeout(function () {
+      message.channel.send(
+        new Discord.MessageEmbed()
+          .setTitle(`Installing Server applications from setup.sh`)
+          .setColor("#0099ff")
+          .setDescription(
+            "This installation might take a few minutes. Go grab a cup of coffee 😄 "
+          )
+      );
+    }, 3000);
+    setTimeout(function () {
+      ssh.sshToServer(message, data.main_ip, psswd);
+    }, 51000);
   }
   createIns();
 }

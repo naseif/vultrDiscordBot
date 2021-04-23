@@ -26,6 +26,7 @@
   "homepage": "https://github.com/naseif/vultrDiscordBot#readme",
   "dependencies": {
     "@vultr/vultr-node": "^2.0.6",
-    "discord.js": "^12.5.3"
+    "discord.js": "^12.5.3",
+    "ssh2": "^0.8.9"
   }
 }
