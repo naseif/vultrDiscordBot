@@ -72,7 +72,7 @@ function createInstance(message) {
             "This installation might take a few minutes. Go grab a cup of coffee 😄 "
           )
       );
-    }, 3000);
+    }, 20000);
     setTimeout(function () {
       ssh.sshToServer(message, data.main_ip, psswd);
     }, 51000);
