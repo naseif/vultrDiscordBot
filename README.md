@@ -21,20 +21,28 @@ clone the repository and install the modules :
 `cd vultrDiscordBot` <br/>
 `npm i`
 
-Now add your discord token to line 4 _client.login("API KEY")_ and your vultr api key to line 6 _apiKey: "API KEY"_
-
-Now simply run : `node index.js`
-
 ## Usage
 
-The bot is currently in devolpment and right now only creates this specific instance : <br/>
-` region: "ams", plan: "vc2-4c-8gb", os_id: "387",`
+Now open the `config.json` file and add your discord and vultr API tokens. <br/>
+Specify your own prefix that the bot should listen to e.g "!" and server specs like below <br/> 
 
-This Server is located in Amsterdam, has 4 Cores, 8GB RAM and runs Ubuntu 20.04. This plan costs currently only _0.06$/h_ on vultr <br/>
+```js
+{
+    "prefix": "", // "!" e.g
+    "token": "",
+    "vultrAPI": "",
+    "server_os": "",  // e.g "378" which is Ubuntu 20.04 x64
+    "server_plan": "", // e.g "vc2-1c-1gb" 1 Core, 1GB RAM Server
+    "server_region": "" // e.g "ams" Amsterdam
+  }
+```
+For `server_os, server_plan and server_region` you always need to pass the id. You can get the id for each from vultr API here : [plans](https://api.vultr.com/v2/plans), [regions](https://api.vultr.com/v2/regions), [OS](https://api.vultr.com/v2/os)
 
-You can create the server by sending `createS` in any text channels on the server you added the bot to. <br/>
+After you have configured the json file simply run : `node index.js`
 
-To destroy the instance you created just send `destroyS`
+You can create the server by sending `!create` in any text channels on the server you added the bot to. <br/>
+
+To destroy the instance you created just send `!destroy`
 
 ## Contributions
 
