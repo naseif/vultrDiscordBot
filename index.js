@@ -18,10 +18,15 @@ client.once("ready", () => {
 });
 
 client.on("message", (message) => {
+  // not for us ...
   if (!message.content.startsWith(prefix) || message.author.bot) return;
+
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
+
+  // not one of our commands ...
   if (!client.commands.has(command)) return;
+
   try {
     client.commands.get(command).execute(message, args);
   } catch (err) {
