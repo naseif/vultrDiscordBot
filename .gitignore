@@ -102,3 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+# config.json should not be added by mistake
+config.json
