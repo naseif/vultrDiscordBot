@@ -6,7 +6,7 @@ const {
   server_region,
   vultrAPI,
 } = require("../config.json");
-const ssh = require("./createSSHConntection");
+const ssh = require("./createSSHConnection");
 
 function createInstance(message) {
   if (!vultrAPI) {
