@@ -1,42 +1,36 @@
-const Client = require("ssh2").Client;
-const conn = new Client();
-const Discord = require("discord.js");
+const { NodeSSH } = require("node-ssh");
+const ssh = new NodeSSH();
+const setupShell = __dirname + "/setup.sh";
 
 function sshToServer(host, password) {
-  return new Promise(
-    (resolve) => {
-
-      conn.on("ready", function () {
-        console.log("Client :: ready");
-        conn.shell(function (err, stream) {
-
-          if (err) throw err;
-
-          stream
-            .on("close", function () {
-              console.log("Stream :: close");
-              conn.end();
-              resolve();
-            })
-
-            .on("data", function (data) {
-              console.log("OUTPUT: " + data);
-            });
-
-          stream.end(
-            `wget https://raw.githubusercontent.com/Michelangelo1337/create-working-environment-for-js-on-ubuntuserver/main/setup.sh && chmod +x setup.sh && ./setup.sh && exit\n`
-          );
-
-        });
-      })
+  return new Promise(function (resolve) {
+    ssh
       .connect({
-        host: `${host}`,
-        port: 22,
+        host: host,
         username: "root",
-        password: `${password}`,
+        password: password,
+      })
+      .then(function () {
+        return ssh.putFile(setupShell, "/root/setup.sh").then(
+          function () {
+            console.log("Setup.sh Copied to remote Server!");
+          },
+          function (err) {
+            console.log("File could not be transfered!");
+            console.log(err);
+          }
+        );
+      })
+      .then(function () {
+        ssh
+          .execCommand("chmod +x setup.sh && ./setup.sh && exit", {
+            cwd: "/root",
+          })
+          .then(function () {
+            resolve();
+          });
       });
-
-    });
+  });
 }
 
 exports.sshToServer = sshToServer;
