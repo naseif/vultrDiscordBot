@@ -23,7 +23,7 @@ clone the repository and install the modules :
 
 ## Usage
 
-Now open the `config.json` file and add your discord and vultr API tokens. <br/>
+First, rename `config.example.json` to `config.json`. Now open the `config.json` file and add your discord and vultr API tokens. <br/>
 Specify your own prefix that the bot should listen to e.g "!" and server specs like below <br/> 
 
 ```js
