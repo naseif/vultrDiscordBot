@@ -1,8 +1,8 @@
 {
-    "prefix": "",
-    "token": "",
-    "vultrAPI": "",
-    "server_os": "",
-    "server_plan": "",
-    "server_region": ""
-  }
+  "prefix": "",
+  "token": "",
+  "vultrAPI": "",
+  "server_os": "",
+  "server_plan": "",
+  "server_region": ""
+}

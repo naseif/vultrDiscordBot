@@ -11,22 +11,23 @@ function destroyInstance(message) {
     return;
   }
   vultr.api.instances.listInstances().then((res) => {
-    console.log(res.instances.length);
     if (res.instances.length === 0) {
       message.channel.send(`There are not active instances currently`);
       return;
     } else {
-      InstanceID = res.instances[0].id;
-      vultr.api.instances.deleteInstance({
-        "instance-id": `${InstanceID}`,
+      res.instances.forEach((instance) => {
+        InstanceID = instance.id;
+        vultr.api.instances.deleteInstance({
+          "instance-id": `${InstanceID}`,
+        });
+        let embedMessageDestroyed = new Discord.MessageEmbed()
+          .setTitle("Server Destroyed!")
+          .setDescription(`Server with id: ${InstanceID} is destroyed!`)
+          .setColor("#0099ff");
+
+        message.channel.send(embedMessageDestroyed);
       });
     }
-    let embedMessageDestroyed = new Discord.MessageEmbed()
-      .setTitle("Server Destroyed!")
-      .setDescription(`Server with id: ${InstanceID} is destroyed!`)
-      .setColor("#0099ff");
-
-    message.channel.send(embedMessageDestroyed);
   });
 }
 
