@@ -2,7 +2,7 @@ const vultr = require("./vultrinitializer");
 const Discord = require("discord.js");
 const { vultrAPI } = require("../config.json");
 
-function destroyInstance(message) {
+function destroyInstance(message, args) {
   let InstanceID;
   if (!vultrAPI) {
     message.channel.send(
@@ -15,19 +15,17 @@ function destroyInstance(message) {
       message.channel.send(`There are not active instances currently`);
       return;
     } else {
-      res.instances.forEach((instance) => {
-        InstanceID = instance.id;
-        vultr.api.instances.deleteInstance({
-          "instance-id": `${InstanceID}`,
-        });
-        let embedMessageDestroyed = new Discord.MessageEmbed()
-          .setTitle("Server Destroyed!")
-          .setDescription(`Server with id: ${InstanceID} is destroyed!`)
-          .setColor("#0099ff");
-
-        message.channel.send(embedMessageDestroyed);
+      InstanceID = args;
+      vultr.api.instances.deleteInstance({
+        "instance-id": `${InstanceID}`,
       });
     }
+    let embedMessageDestroyed = new Discord.MessageEmbed()
+      .setTitle("Server Destroyed!")
+      .setDescription(`Server with id: ${InstanceID} is destroyed!`)
+      .setColor("#0099ff");
+
+    message.channel.send(embedMessageDestroyed);
   });
 }
 
