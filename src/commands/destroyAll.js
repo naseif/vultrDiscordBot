@@ -5,7 +5,6 @@ module.exports = {
   name: "destroyall",
   description: "Destroys all running instances!",
   execute(message, args, client, Discord) {
-    let InstanceID;
     if (!vultrAPI) {
       message.channel.send(
         `There is no instance to destroy since your API token is not defined!`
@@ -19,7 +18,7 @@ module.exports = {
         return;
       } else {
         res.instances.forEach((instance) => {
-          idsArray.push(`Server with id: ${instance.id} is destroyed!`);
+          idsArray.push(`Server with id: **${instance.id}** is destroyed!`);
           InstanceID = vultr.api.instances.deleteInstance({
             "instance-id": `${instance.id}`,
           });
