@@ -2,7 +2,7 @@ const fs = require("fs");
 const Discord = require("discord.js");
 const { prefix, token } = require("./config.json");
 const client = new Discord.Client();
-client.commands = new Discord.Collection();
+let commands = (client.commands = new Discord.Collection());
 
 const commandFiles = fs
   .readdirSync("./src/commands")
@@ -36,3 +36,4 @@ client.on("message", (message) => {
 });
 
 client.login(token);
+exports.commands = commands;

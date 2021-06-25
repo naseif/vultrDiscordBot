@@ -13,6 +13,10 @@ module.exports = {
     }
     let availableInstances = [];
     vultr.api.instances.listInstances().then((data) => {
+      if (data.instances.length === 0)
+        return message.channel.send(
+          "There are no active Instances at the moment to list"
+        );
       data.instances.forEach((activeInstance) => {
         availableInstances.push(
           `Instance ID : **${activeInstance.id}** - OS : ${activeInstance.os} - Region : ${activeInstance.region}`
