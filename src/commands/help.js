@@ -1,4 +1,4 @@
-const commands = require("../main");
+const commands = require("../../index");
 const { prefix } = require("../../config.json");
 module.exports = {
   name: "help",
