@@ -31,7 +31,7 @@ client.on("message", (message) => {
     client.commands.get(command).execute(message, args, client, Discord);
   } catch (err) {
     console.error(err);
-    message.reply("Command Unknown!");
+    message.reply("Command Unknown! Try Again!");
   }
 });
 
